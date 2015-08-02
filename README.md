@@ -6,8 +6,8 @@ Bulk operations for Drupal sites.
 - uses `/root/bin/drupal-get-drupals` command,  you can change variable `get_drupals_command` in script
 - search match-tests in `/usr/local/bin/drupal-tests/`, you can change variable `tests_root_path` in script, see `/match-tests-examples`
 - sites placed in /home/user/www/example.com, you can change it in `drupal-get-drupals`
-- (server-scripts)[https://github.com/popstas/server-scripts] (`cp-chown`, `drupal-patch` in examples)
-- (drupal-scripts)[https://github.com/popstas/drupal-scripts] (`drs` in examples)
+- [server-scripts](https://github.com/popstas/server-scripts) (`cp-chown`, `drupal-patch` in examples)
+- [drupal-scripts](https://github.com/popstas/drupal-scripts) (`drs` in examples)
 
 ## Features
 - поиск всех папок друпала
