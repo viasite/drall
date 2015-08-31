@@ -6,7 +6,8 @@
 # 07.03.2015
 # 23.03.2015 - --match-test, --name, removed required command
 # 06.05.2015 - catch matchers exit codes
-# v 0.4
+# 31.08.2015 - installer
+# v 0.4.1
 
 import optparse
 from optparse import Option
@@ -46,8 +47,8 @@ class MultipleOption(Option):
 
 
 def main():
-    tests_root_path = '/usr/local/bin/drupal-tests/'
-    get_drupals_command = '/root/bin/drupal-get-drupals'
+    tests_root_path = '/usr/share/drall/drupal-tests/'
+    get_drupals_command = 'drupal-get-drupals'
 
     signal.signal(signal.SIGINT, signal_handler)
 

@@ -1,13 +1,12 @@
 # Drall
 Bulk operations for Drupal sites.
 
-## Depedencies:
+## Depedencies
 - [amoffat/sh](https://github.com/amoffat/sh)
-- uses `/root/bin/drupal-get-drupals` command,  you can change variable `get_drupals_command` in script
-- search match-tests in `/usr/local/bin/drupal-tests/`, you can change variable `tests_root_path` in script, see `/match-tests-examples`
-- sites placed in /home/user/www/example.com, you can change it in `drupal-get-drupals`
-- [server-scripts](https://github.com/popstas/server-scripts) (`cp-chown`, `drupal-patch` in examples)
-- [drupal-scripts](https://github.com/popstas/drupal-scripts) (`drs` in examples)
+- [popstas/server-scripts](https://github.com/popstas/server-scripts) (`drupal-get-drupals` and `cp-chown`, `drupal-patch` in examples)
+- [popstas/drupal-scripts](https://github.com/popstas/drupal-scripts) (`drs` in examples)
+- uses `drupal-get-drupals` command,  you can change variable `get_drupals_command` in script
+- search match-tests in `/usr/share/drall/drupal-tests/`, you can change variable `tests_root_path` in script, see `/match-tests-examples`
 
 ## Features
 - поиск всех папок друпала
@@ -15,7 +14,15 @@ Bulk operations for Drupal sites.
 - переход в корневую папку друпала
 - выполнение заданной команды от имени юзера сайта или root
 
+## Installation
+```
+git clone https://github.com/popstas/drall.git
+cd drall
+./install.sh
+```
 
+
+## Usage
 Common usage: `drall [options] ["command or command_file_path"]`
 
 ```
