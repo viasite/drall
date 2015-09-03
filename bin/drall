@@ -47,7 +47,7 @@ class MultipleOption(Option):
 
 
 def main():
-    tests_root_path = '/usr/share/drall/drupal-tests/'
+    tests_root_path = '/usr/share/drall/match-tests/'
     get_drupals_command = 'drupal-get-drupals'
 
     signal.signal(signal.SIGINT, signal_handler)
@@ -253,12 +253,16 @@ class Drall:
                 })
 
             for site_root in site_list:
-                if self.options.verbose:
-                    sys.stdout.write('.')
-                    sys.stdout.flush()
 
                 if self.test_site(site_root, match_tests):
+                    if self.options.verbose:
+                        sys.stdout.write('+')
                     site_list_filtered.append(site_root)
+                else:
+                    if self.options.verbose:
+                        sys.stdout.write('.')
+
+                sys.stdout.flush()
 
             if self.options.verbose:
                 print ''

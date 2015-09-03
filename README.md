@@ -6,7 +6,7 @@ Bulk operations for Drupal sites.
 - [popstas/server-scripts](https://github.com/popstas/server-scripts) (`drupal-get-drupals` and `cp-chown`, `drupal-patch` in examples)
 - [popstas/drupal-scripts](https://github.com/popstas/drupal-scripts) (`drs` in examples)
 - uses `drupal-get-drupals` command,  you can change variable `get_drupals_command` in script
-- search match-tests in `/usr/share/drall/drupal-tests/`, you can change variable `tests_root_path` in script, see `/match-tests-examples`
+- search match-tests in `/usr/share/drall/match-tests/`, you can change variable `tests_root_path` in script, see `/match-tests-examples`
 
 ## Features
 - поиск всех папок друпала
@@ -36,7 +36,7 @@ Options:
                         only matches by root_path
   -m MATCH_TESTS, --match-test=MATCH_TESTS
                         only matches if command output not empty string
-                        commands from/usr/local/bin/drupal-tests/ allowed
+                        commands from/usr/local/bin/match-tests/ allowed
                         multiple tests You can use negative matchers, add "-"
                         before command
   --test                Test exec, only first site
@@ -63,7 +63,7 @@ Options:
 
 ## Фильтрация сайтов:
 `-m` - главная команда для фильтрации. Работает так:  
-В `/usr/local/bin/drupal-tests` ищется одноименный файл и выполняется в корне сайта.  
+В `/usr/local/bin/match-tests` ищется одноименный файл и выполняется в корне сайта.  
 Если результат не пустой и не равен нулю, сайт проходит фильтр.  
 Можно указывать несколько тестов так:  
 `drall -m test1 -m test2`  
@@ -91,8 +91,9 @@ Options:
 `drall -m '-drs vget update_modified' -m visitkaplus` - получить все визитки+ не отключенные от апдейтов  
 `drall -v -m all_complete -m clean_all` - получить все готовые не измененные сайты  
 `drall --asroot -m snormal -m clean_css -v 'cp-chown /home/from/www/from.example.com $PWD sites/all/themes/theme/css/style.css'` - скопировать style.css из from.example.com в каждый неизмененный snormal  
+`drall 'request="/contacts"; page="http://$(basename $PWD)$request"; exists=$(curl -s --head "$page" | grep -c 200); if [ "$exists" = 1 ]; then echo $page; fi' -q | grep -v "^$"` - вывести все страницы /contacts
 
 
 ## Известные проблемы:
 1. Команду нужно заключать в кавычки, фактически, команда должна быть одним параметром скрипта
-2. Если в папке тестов drupal-tests будет несколько одноименных тестов, команда скорее всего упадет
+2. Если в папке тестов match-tests будет несколько одноименных тестов, команда скорее всего упадет
