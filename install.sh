@@ -57,8 +57,6 @@ if [ -d "$INSTALL_DIR" ]; then
 			exit 1
 		fi
 	fi
-
-	rm -rf "$INSTALL_DIR"
 fi
 
 # install amoffat/sh
@@ -72,7 +70,12 @@ if [ ! -f /etc/server-scripts.conf ]; then
 	/usr/local/src/server-scripts/install.sh -y
 fi
 
-cp -R "$SOURCE_DIR" "$INSTALL_DIR"
+rsync -a "$SOURCE_DIR/" "$INSTALL_DIR" || {
+	echo "Sync files to $INSTALL_DIR failed."
+	exit 1
+}
+
+mkdir -p "$INSTALL_DIR/match-tests"
 
 chmod +x "$INSTALL_DIR"/bin/*
 
