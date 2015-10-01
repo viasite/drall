@@ -172,7 +172,10 @@ class Drall:
 
             # command_result = sh.Command('su -c "%s" %s' % (command_file_path, site_user)).run()
 
-            command_result = sh.Command(command_file_path).run()
+            try:
+           	    command_result = sh.Command(command_file_path).run()
+            except sh.ErrorReturnCode:
+                command_result = '# error executing script\n'
 
             # command_result = subprocess.call(command_file_path)
 
