@@ -7,7 +7,8 @@
 # 23.03.2015 - --match-test, --name, removed required command
 # 06.05.2015 - catch matchers exit codes
 # 31.08.2015 - installer
-# v 0.4.1
+# see git log
+# v 0.4.3
 
 import optparse
 from optparse import Option
@@ -169,19 +170,22 @@ class Drall:
         sh.cd(site_root)
 
         if self.options.asroot:
+            command_result = ''
 
             # command_result = sh.Command('su -c "%s" %s' % (command_file_path, site_user)).run()
 
             try:
-           	    command_result = sh.Command(command_file_path).run()
+                command_result = sh.Command(command_file_path).run()
             except sh.ErrorReturnCode:
-                command_result = '# error executing script\n'
+                sys.stderr.write('# error while executing script\n')
 
             # command_result = subprocess.call(command_file_path)
 
             if not self.options.quiet:
                 print site_root
-            print command_result
+
+            if command_result != '':
+                print command_result
         else:
 
             # su
