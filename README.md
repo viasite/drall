@@ -91,7 +91,7 @@ Options:
 `drall -m '-drs vget update_modified' -m visitkaplus` - получить все визитки+ не отключенные от апдейтов  
 `drall -v -m all_complete -m clean_all` - получить все готовые не измененные сайты  
 `drall --asroot -m snormal -m clean_css -v 'cp-chown /home/from/www/from.example.com $PWD sites/all/themes/theme/css/style.css'` - скопировать style.css из from.example.com в каждый неизмененный snormal  
-`export page="/contacts"; drall --asroot -q 'url="http://$(get_domain)$page"; curl -sI "$url" | grep "200 OK" > /dev/null && echo "$url"' 2>/dev/null | grep -v "^$"` - вывести все страницы /contacts 
+`export page="/contacts"; drall --asroot -q 'url="http://$(get_domain)$page"; http --check-status --follow HEAD "$url" &> /dev/null && echo "$url"' 2>/dev/null | grep -v "^$"` - вывести все страницы /contacts
 
 ## Баги и фичи:
 1. Команду нужно заключать в кавычки, фактически, команда должна быть одним параметром скрипта
