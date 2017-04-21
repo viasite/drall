@@ -21,6 +21,11 @@ cd drall
 ./install.sh
 ```
 
+### Autocompletion
+Install with antigen:
+```
+antigen bundle viasite/drs
+```
 
 ## Usage
 Common usage: `drall [options] ["command or command_file_path"]`
