@@ -10,6 +10,7 @@
 # see git log
 # v 0.4.3
 
+from __future__ import print_function
 import optparse
 from optparse import Option
 import sh
@@ -129,11 +130,11 @@ class Drall:
         site_list = self.get_drupals()
 
         if not self.options.quiet:
-            print 'Found %d sites' % len(site_list)
+            print(('Found %d sites' % len(site_list)))
 
         if not self.command:
             for site_root in site_list:
-                print site_root
+                print(site_root)
             return
 
         command_file_path = self.build_command_file(self.command)
@@ -163,7 +164,7 @@ class Drall:
             command_file.write('#!/bin/bash\n' + command + '\n')
         command_file.close()
 
-        os.chmod(command_file_path, 0755)
+        os.chmod(command_file_path, 0o755)
         return command_file_path
 
     def apply_command(self, site_root, command_file_path):
@@ -182,10 +183,10 @@ class Drall:
             # command_result = subprocess.call(command_file_path)
 
             if not self.options.quiet:
-                print site_root
+                print(site_root)
 
             if command_result != '':
-                print command_result
+                print(command_result)
         else:
 
             # su
@@ -200,11 +201,11 @@ class Drall:
 
             try:
                 if not self.options.quiet:
-                    print site_root
+                    print(site_root)
 
                 os.system('su -c "%s" %s'
                           % (command_file_path, site_user))
-                print ''
+                print('')
             except KeyboardInterrupt:
 
                 # p = subprocess.call('su -c %s %s' % (command_file_path, site_user))
@@ -219,12 +220,12 @@ class Drall:
     def get_drupals(self):
         site_list = sh.Command(self.options.get_drupals_command).run().split()
         if self.options.verbose:
-            print 'Found %s unfiltered sites' % len(site_list)
+            print('Found %s unfiltered sites' % len(site_list))
 
         # filter by theme
         if self.options.theme:
             if self.options.verbose:
-                print 'Filter by theme'
+                print('Filter by theme')
             site_list = [site_root for site_root in site_list
                          if os.path.exists(site_root
                                            + '/sites/all/themes/' + self.options.theme)]
@@ -237,7 +238,7 @@ class Drall:
         site_list_filtered = []
         if self.options.match_tests:
             if self.options.verbose:
-                print 'Filter by match tests:'
+                print('Filter by match tests:')
             match_tests = []
             for match_test in self.options.match_tests:
                 negative = match_test[0] == '-'
@@ -249,10 +250,10 @@ class Drall:
                 if found:
                     match_test = found
                     if self.options.verbose:
-                        print 'Found script: %s' % found
+                        print('Found script: %s' % found)
                 else:
                     if self.options.verbose:
-                        print 'Script "%s" not found, try use as command' % match_test
+                        print('Script "%s" not found, try use as command' % match_test)
 
                 match_tests.append({
                     'path': self.build_command_file(match_test),
@@ -272,7 +273,7 @@ class Drall:
                 sys.stdout.flush()
 
             if self.options.verbose:
-                print ''
+                print('')
 
             for match_test in match_tests:
                 os.remove(match_test['path'])
@@ -281,7 +282,7 @@ class Drall:
 
         if self.options.number:
             if self.options.verbose:
-                print 'Filter by limit'
+                print('Filter by limit')
             site_list = site_list[:self.options.number]
 
         return site_list
